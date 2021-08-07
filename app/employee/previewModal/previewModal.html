@@ -1,0 +1,75 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Cost Preview</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="container">
+        <h2>Company Cost</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Relationship</th>
+                    <th scope="col">Cost</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">{{vm.employee.FirstName}}</td>
+                    <td>{{vm.employee.LastName}}</td>
+                    <td>Employee</td>
+                    <td class="text-right">{{vm.company.CostPerEmployee | currency}}</td>
+                </tr>
+                <tr ng-repeat="dependent in vm.employee.Dependents">
+                    <td scope="row">{{dependent.FirstName}}</td>
+                    <td>{{dependent.LastName}}</td>
+                    <td>{{vm.cs.getRelationshipString(dependent.Relationship)}}</td>
+                    <td class="text-right">{{vm.company.CostPerDependent | currency}}</td>
+                </tr>
+                <tr>
+                    <td scope="row" colspan="3"><b>Grand Total:</b></td>
+                    <td class="text-right"><b>{{vm.previewCost.totalCost.value | currency}}</b></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div class="container">
+        <h2>Employee Yearly Wage</h2>
+        <table class="table table-striped table-bordered">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row" colspan="2">Gross Wage:</td>
+                    <td class="text-right">{{vm.employee.Wage | currency}} x {{vm.es.findYearlyWageMultiplier()}}</td>
+                    <td class="text-right">{{vm.employee.Wage * vm.es.findYearlyWageMultiplier() | currency}}</td>
+                </tr>
+                <tr>
+                    <td scope="row" colspan="2">Benefits Deduction:</td>
+                    <td class="text-right">{{vm.previewCost.benefitsDeduction.description}}</td>
+                    <td class="text-right">({{vm.previewCost.benefitsDeduction.value | currency}})</td>
+                </tr>
+                <tr>
+                    <td scope="row" colspan="3"><b>Wage After Deductions:</b></td>
+                    <td class="text-right"><b>{{vm.previewCost.deductedWage.value | currency}}</b></td>
+                </tr>
+                <tr ng-if="vm.es.isDeductable(vm.employee)">
+                    <td scope="row" colspan="2">Deduction Discount:</td>
+                    <td class="text-right">10%</td>
+                    <td class="text-right"> {{vm.previewCost.benefitsDeduction.value * 0.1| currency}} </td>
+                </tr>
+                <tr>
+                    <td scope="row" colspan="3"><b>Net Wage:</b></td>
+                    <td class="text-right"><b>{{vm.previewCost.netWage.value| currency}}</b></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.close()">Ok</button>
+</div>

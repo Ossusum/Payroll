@@ -1,0 +1,72 @@
+﻿<div class="container">
+    <div class="container">
+        <br />
+        <div class="row">
+            <h1 class="col">Employee Profile</h1>
+            <div class="container d-flex flex-row-reverse col">
+                <button class="btn btn-outline-secondary" type="button" ng-click="vm.preview()">Preview Costs</button>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input ng-model="vm.employee.FirstName" class="form-control" id="firstName" ng-required="true" placeholder="John">
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input ng-model="vm.employee.LastName" class="form-control" id="lastName" ng-required="true" placeholder="Smith">
+        </div>
+        <div class="mb-3">
+            <label for="hireDate" class="form-label">HireDate</label>
+            <input ng-model="vm.employee.HireDate" type="date" class="form-control" ng-required="true" id="hireDate" placeholder="Smith">
+        </div>
+        <div class="mb-3">
+            <label for="Wage" class="form-label">Wage Per Paycheck</label>
+            <div class="mb-3 input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">$</div>
+                </div>
+                <input ng-model="vm.employee.Wage" class="form-control" type="number" min="0.01" step="0.01" ng-required="true" />
+            </div>
+        </div>
+        <div class="container d-flex flex-row-reverse">
+            <button type="button" class="btn btn-link" ng-click="vm.openModal()">+Add Dependent</button>
+        </div>
+        <br />
+        <div class="mb-3" ng-if="vm.employee.Dependents.length > 0">
+            <label for="table" class="form-label"><h2>Dependents</h2></label>
+            <table class="shadow p-3 mb-5 bg-body rounded table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Relationship</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="dependent in vm.employee.Dependents">
+                        <th scope="row">{{$index + 1}}</th>
+                        <td>{{dependent.FirstName}}</td>
+                        <td>{{dependent.LastName}}</td>
+                        <td>{{vm.cs.getRelationshipString(dependent.Relationship)}}</td>
+                        <td><button type="button" class="btn btn-link" ng-click="vm.deleteDependent(dependent)">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div ng-if="vm.isEdit" class="bottom">
+        <div class="d-flex justify-content-between">
+            <button ng-click="vm.deleteEmployee()" type="button" class="btn btn-danger p-2">Delete</button>
+            <button ng-click="vm.save()" type="button" class="btn btn-success p-2">Save</button>
+        </div>
+    </div>
+    <div ng-if="!vm.isEdit" class="bottom">
+        <div class="d-flex justify-content-between">
+            <div></div>
+            <button ng-click="vm.save()" type="button" class="btn btn-success p-2">Save</button>
+        </div>
+    </div>
+
+</div>

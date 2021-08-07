@@ -1,0 +1,31 @@
+﻿<form ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Add Dependent</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="container">
+
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input ng-model="vm.dependent.FirstName" class="form-control" id="firstName" ng-required="true" placeholder="John">
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input ng-model="vm.dependent.LastName" class="form-control" id="lastName" ng-required="true" placeholder="Smith">
+            </div>
+            <div class="mb-3">
+                <label for="hireDate" class="form-label" ng-required="true">Relationship</label>
+                <select ng-model="vm.dependent.Relationship" class="form-select">
+                    <option ng-repeat="opt in vm.options" value="{{opt.value}}">{{opt.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" >Save</button>
+        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+    </div>
+
+
+</form>

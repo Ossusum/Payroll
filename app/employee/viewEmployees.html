@@ -1,0 +1,30 @@
+﻿<div class="shadow p-3 mb-5 bg-body rounded mb-3">
+    <label for="table" class="form-label"></label>
+    <div class="d-flex flex-row-reverse">
+        <button type="button" class="btn btn-link" ng-click="vm.addEmployee()">+Add Employee</button>
+    </div>
+    <br />
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" ng-model="vm.searchText" aria-label="Text input with checkbox" placeholder="Search Employees">
+    </div>
+
+    <table class="table strapped-table">
+        <thead>
+            <tr>
+                <th scope="col">Employee ID</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="employee in vm.employees | filter: vm.searchText" ng-click="vm.openEmployee(employee)">
+                <th scope="row">{{employee.ID}}</th>
+                <td>{{employee.FirstName}}</td>
+                <td>{{employee.LastName}}</td>
+                <td>{{vm.cs.getTitleString(employee.Title)}}</td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>
